@@ -1,107 +1,107 @@
 # 🚗 StarExpress — Landing Page
 
-> Landing page promocional para taller mecánico automotriz, con sistema integrado de registro de servicios vía formulario y envío de correos — todo sin servidor externo.
+> Promotional landing page for an automotive repair shop, with an integrated service request form and email notifications — all without an external server.
 
 🌐 **[starexpress.com.mx](https://starexpress.com.mx)**
 
 ---
 
-## 📸 Vista previa
+## 📸 Preview
 
 ![StarExpress Landing Page](./assets/loading.jpg)
 
 ---
 
-## 🎯 Sobre el proyecto
+## 🎯 About the project
 
-**StarExpress** es una empresa de servicios automotrices con más de 40 años de experiencia. Este sitio fue desarrollado como una landing page profesional con el objetivo de:
+**StarExpress** is an automotive service company with over 40 years of experience. This site was built as a professional landing page with the goal of:
 
-- Presentar los servicios y filosofía de la empresa
-- Permitir a los clientes registrar solicitudes de servicio
-- Enviar confirmaciones de contacto automáticamente por correo
-- Ser atractivo, rápido y fácil de mantener
+- Showcasing the company's services and philosophy
+- Allowing customers to submit service requests
+- Automatically sending confirmation emails upon contact
+- Being visually appealing, fast, and easy to maintain
 
-### 🧩 El reto
+### 🧩 The challenge
 
-El cliente no quería un servidor externo ni una arquitectura compleja. La solución fue integrar **todo en un solo proyecto con Astro**: la landing page, el formulario de contacto y el sistema de envío de correos usando las **API Routes de Astro** junto con **Nodemailer** — sin backend separado, sin base de datos, sin infraestructura adicional.
+The client did not want an external server or a complex architecture. The solution was to integrate **everything into a single Astro project**: the landing page, the contact form, and the email system using **Astro's API Routes** together with **Nodemailer** — no separate backend, no database, no additional infrastructure.
 
 ---
 
-## 🛠️ Stack tecnológico
+## 🛠️ Tech stack
 
-| Tecnología | Uso |
+| Technology | Usage |
 |---|---|
-| [Astro 5](https://astro.build/) | Framework principal, SSR y API Routes |
-| [React 19](https://react.dev/) | Componentes interactivos dentro de Astro |
-| [Tailwind CSS 4](https://tailwindcss.com/) | Estilos utilitarios vía plugin de Vite |
-| [Framer Motion](https://www.framer.com/motion/) | Animaciones e interacciones visuales |
-| [Zustand](https://zustand-demo.pmnd.rs/) | Estado global del formulario |
-| [Nodemailer](https://nodemailer.com/) | Envío de correos desde API Route de Astro |
-| [React Icons](https://react-icons.github.io/react-icons/) | Iconografía |
-| [TypeScript](https://www.typescriptlang.org/) | Tipado estático en todo el proyecto |
-| [Netlify](https://www.netlify.com/) | Deploy con adaptador SSR oficial de Astro |
+| [Astro 5](https://astro.build/) | Core framework, SSR and API Routes |
+| [React 19](https://react.dev/) | Interactive components within Astro |
+| [Tailwind CSS 4](https://tailwindcss.com/) | Utility-first styling via Vite plugin |
+| [Framer Motion](https://www.framer.com/motion/) | Animations and visual interactions |
+| [Zustand](https://zustand-demo.pmnd.rs/) | Global state management for the form |
+| [Nodemailer](https://nodemailer.com/) | Email sending from Astro API Route |
+| [React Icons](https://react-icons.github.io/react-icons/) | Iconography |
+| [TypeScript](https://www.typescriptlang.org/) | Static typing across the project |
+| [Netlify](https://www.netlify.com/) | Deploy with official Astro SSR adapter |
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 starexpress/
 ├── src/
 │   ├── pages/
-│   │   ├── index.astro          # Landing page principal
+│   │   ├── index.astro          # Main landing page
 │   │   └── api/
-│   │       └── contact.ts       # API Route — envío de correos con Nodemailer
+│   │       └── contact.ts       # API Route — email sending with Nodemailer
 │   ├── components/
 │   │   ├── Hero.astro
 │   │   ├── Services.astro
 │   │   ├── Gallery.astro
-│   │   ├── ContactForm.tsx      # Formulario React con Zustand
+│   │   ├── ContactForm.tsx      # React form with Zustand
 │   │   └── ...
 │   └── layouts/
 │       └── Layout.astro
 ├── public/
 │   └── assets/
-├── astro.config.mjs             # Config con adaptador Netlify + React + Tailwind
+├── astro.config.mjs             # Config with Netlify adapter + React + Tailwind
 └── package.json
 ```
 
-### 🔄 Flujo del formulario de contacto
+### 🔄 Contact form flow
 
 ```
-Usuario llena formulario
+User fills out the form
         ↓
-React (Zustand) maneja estado local
+React (Zustand) handles local state
         ↓
-POST a /api/contact  (API Route de Astro)
+POST to /api/contact  (Astro API Route)
         ↓
-Nodemailer envía correo de confirmación al usuario
-        + notificación interna al taller
+Nodemailer sends confirmation email to the user
+        + internal notification to the shop
         ↓
-Respuesta JSON → UI actualiza estado
+JSON response → UI updates state
 ```
 
-> Todo el flujo ocurre dentro del mismo proyecto Astro desplegado en Netlify con SSR. No hay servidor separado.
+> The entire flow runs inside the same Astro project deployed on Netlify with SSR. No separate server required.
 
 ---
 
-## ✨ Decisiones técnicas destacadas
+## ✨ Key technical decisions
 
-- **Astro como monolito ligero**: Se aprovecharon las API Routes de Astro para manejar el backend sin necesidad de un servidor Node.js independiente.
-- **React solo donde se necesita**: El resto del sitio usa componentes `.astro` estáticos para maximizar performance; React se usa únicamente en el formulario interactivo.
-- **Tailwind CSS v4 con Vite**: Integración directa vía `@tailwindcss/vite` sin archivo de configuración separado.
-- **Zustand para el formulario**: Estado simple y sin boilerplate para manejar los campos, validación y estado de envío.
-- **Framer Motion**: Animaciones de entrada en secciones para mejorar la experiencia visual sin sacrificar rendimiento.
-
----
-
-## 🚀 Deploy
-
-El sitio está desplegado en **Netlify** utilizando el adaptador oficial `@astrojs/netlify`, que habilita el modo SSR necesario para que las API Routes funcionen en producción.
+- **Astro as a lightweight monolith**: Astro's API Routes were used to handle backend logic without a standalone Node.js server.
+- **React only where needed**: The rest of the site uses static `.astro` components to maximize performance; React is only used in the interactive form.
+- **Tailwind CSS v4 with Vite**: Direct integration via `@tailwindcss/vite` with no separate config file needed.
+- **Zustand for the form**: Simple, boilerplate-free state management for fields, validation, and submission status.
+- **Framer Motion**: Section entrance animations to enhance the visual experience without hurting performance.
 
 ---
 
-## 📦 Dependencias principales
+## 🚀 Deployment
+
+The site is deployed on **Netlify** using the official `@astrojs/netlify` adapter, which enables the SSR mode required for API Routes to work in production.
+
+---
+
+## 📦 Main dependencies
 
 ```json
 {
@@ -117,9 +117,9 @@ El sitio está desplegado en **Netlify** utilizando el adaptador oficial `@astro
 
 ---
 
-## 📄 Nota
+## 📄 Note
 
-Este repositorio contiene únicamente la documentación del proyecto. El código fuente es privado por acuerdo con el cliente.
+This repository contains only the project documentation. The source code is private by agreement with the client.
 
 ---
 
